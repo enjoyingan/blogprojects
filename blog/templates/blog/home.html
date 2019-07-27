@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+    {% block content %}
+
+{% if user.is_authenticated %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>    
+            <tbody>
+                {% for blog in user.blog_set.all %}
+                <tr>
+                    <th scope="row">{{blog.id}}</th>
+                    <td><a href="{% url 'detail' blog.id %}">{{blog.title}}</a></td>
+                    <td>{{blog.pub_date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'new'%}"><button type="button" class="btn btn-success">New</button></a>
+
+        <div class="mommy" style="background-color: yellow; height: 50%; ">
+        </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <h1> {{blog.title}} </h1>
+        <p> {{blog.body}} </p>
+        <p> {{blog.pub_date}} </p>
+        <a href="{% url 'post_like' blog.id %}">
+                {{message}}
+        </a><br>{{blog.like_count}}명이 좋아합니다.
+        <hr>
+        <h3>Comment</h3>
+        {% for comment in blog.comment_set.all %}
+        <p>{{comment.body}}</p>
+        {% endfor %}
+        <form action="{% url 'comment_create' blog.id %}">
+                <input type="text" name="content" placeholder="댓글 입력">
+                <button type="submit">작성</button>
+        </form>
+        <a href="{% url 'home' %}"><button type="button" class="btn btn-primary">Home</button></a>
+
+        <a href="{% url 'edit' blog.id %}"> <button type="button" class="btn btn-danger">Edit</button></a>
+        <a href="{% url 'delete' blog.id %}"><button type="button" class="btn btn-dark">Delete</button></a>
+{% endblock %}
